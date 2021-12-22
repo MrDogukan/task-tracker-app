@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import "./App.css";
 import Tasks from "./components/Tasks";
 import { useState } from "react";
+import AddTask from "./components/AddTask";
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -25,6 +26,12 @@ function App() {
     },
   ]);
 
+  // ADD TASK
+  const addTask = (newTask) => {
+    const id = Math.floor(Math.random() * 100) + 1;
+    const addNewTask = { id, ...newTask };
+    setTasks([...tasks, addNewTask]);
+  };
   //DELETE TASK
   const deleteTask = (deletedTaskId) => {
     setTasks(tasks.filter((task) => task.id !== deletedTaskId));
@@ -33,6 +40,7 @@ function App() {
   return (
     <div className="container">
       <Header title="TASK TRACKER" />
+      <AddTask addTask={addTask} />
       <Tasks tasks={tasks} deleteTask={deleteTask} />
     </div>
   );
